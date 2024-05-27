@@ -1,7 +1,7 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { primary, secondary } from "../constants/colors";
 
-function EventCard() {
+function EventCard({ event }) {
   return (
     <Box sx={{ padding: "0px 0px 10px 0" }}>
       <Box

@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Hero from "../components/Hero";
 import EventCard from "../components/EventCard";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { primary, secondary } from "../constants/colors";
+import { supabase } from "../database/supabaseClient";
 
 function HomePage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+  const [events, setEvents] = useState<any[] | null>([]);
+
+  useEffect(() => {
+    getCountries();
+  }, []);
+
+  async function getCountries() {
+    const { data } = await supabase.from("events").select();
+    setEvents(data);
+  }
+
   return (
     <Box>
       <Hero />
-
+      <ul>
+        {events!.map((event) => (
+          <li key={event.id}>{event.name}</li>
+        ))}
+      </ul>
       <Box
         sx={{
           backgroundColor: "white", // bg-white
@@ -21,33 +38,11 @@ function HomePage() {
         <Typography>Events in Current Month</Typography>
 
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>{" "}
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>{" "}
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
+          {events?.map((event) => (
+            <Grid item xs={4}>
+              <EventCard event={event!} />
+            </Grid>
+          ))}
         </Grid>
 
         <Box display="flex" justifyContent="center" sx={{ paddingTop: "20px" }}>

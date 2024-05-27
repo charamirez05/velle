@@ -28,9 +28,7 @@ function Navbar() {
             alignItems="center"
             justifyContent="space-between"
           >
-            <IconButton>
-              <img style={{ height: "55px" }} src={logo} alt="Fora" />
-            </IconButton>
+            <img style={{ height: "75px" }} src={logo} alt="Fora" />
 
             <Typography
               variant="h5"

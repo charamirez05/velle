@@ -2,7 +2,7 @@ import Hero from "../components/Hero";
 import { Box, Button, Typography } from "@mui/material";
 import { primary, secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
-import useEvents from "../services/useEvents";
+import useEvents from "../services/eventServices/useEvents";
 import { EventLoading } from "../components/EventLoading";
 
 function HomePage() {

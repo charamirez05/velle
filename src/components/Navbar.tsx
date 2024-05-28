@@ -1,5 +1,5 @@
 import logo from "../images/logo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -20,6 +20,8 @@ import { Home, Add } from "@mui/icons-material";
 import { useState } from "react";
 
 function Navbar() {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -151,6 +153,25 @@ function Navbar() {
               Velle
             </Typography>
           </Stack>
+
+          <Button
+            sx={{
+              fontWeight: "bold",
+              color: secondary,
+            }}
+            onClick={() => navigate("/sign-in")}
+          >
+            Sign In
+          </Button>
+          <Button
+            sx={{
+              fontWeight: "bold",
+              color: secondary,
+            }}
+            onClick={() => navigate("/register")}
+          >
+            Register
+          </Button>
         </Stack>
       </Toolbar>
     </AppBar>

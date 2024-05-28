@@ -1,4 +1,4 @@
-import { supabase } from "../database/supabaseClient";
+import { supabase } from "../../database/supabaseClient";
 
 export async function getAllEvents() {
   const { data, error } = await supabase.from("events").select();

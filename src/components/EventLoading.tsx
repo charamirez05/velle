@@ -5,24 +5,24 @@ export const EventLoading = ({ loading }: { loading: boolean }) => {
   return (
     loading && (
       <Box
-        sx={{
-          padding: { xs: "10px", md: "20px" },
-          margin: { xs: "10px", md: "10px" },
-          display: "flex",
-          justifyContent: "center",
-          width: "100%",
-        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+        width="150vh"
       >
-        <Typography
-          variant="h4"
-          sx={{
-            fontSize: { xs: "25px", md: "30px" },
-            color: secondary,
-            fontWeight: "bold",
-          }}
-        >
-          Loading...
-        </Typography>
+        <Box>
+          <Typography
+            variant="h3"
+            sx={{
+              fontSize: { xs: "25px", md: "35px" },
+              color: secondary,
+              fontWeight: "bold",
+            }}
+          >
+            Loading...
+          </Typography>
+        </Box>
       </Box>
     )
   );

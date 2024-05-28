@@ -1,7 +1,8 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { primary, secondary } from "../constants/colors";
+import { IEvent } from "../models/event";
 
-function EventCard({ event }) {
+function EventCard({ event }: { event: IEvent }) {
   return (
     <Box sx={{ padding: "0px 0px 10px 0" }}>
       <Box
@@ -13,59 +14,58 @@ function EventCard({ event }) {
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
-          <Box>
-            <Stack direction="row" spacing={2}>
-              <Typography
-                variant="subtitle2"
-                sx={{ fontSize: { xs: "10px", md: "15px" } }}
-              >
-                Event Date
-              </Typography>
+          <Stack direction="row" spacing={2}>
+            <Typography
+              variant="subtitle2"
+              sx={{ fontSize: { xs: "10px", md: "15px" } }}
+            >
+              {event && event.date}
+            </Typography>
 
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  fontSize: { xs: "10px", md: "15px" },
-                }}
-              >
-                Event Time
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                sx={{ fontSize: { xs: "10px", md: "15px" } }}
-              >
-                Event Location
-              </Typography>
-            </Stack>
-
-            <Stack spacing={2}>
-              <Typography
-                variant="h3"
-                sx={{
-                  fontSize: { xs: "25px", md: "30px" },
-                  fontWeight: "bold",
-                  color: secondary,
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                  paddingTop: "20px",
-                }}
-              >
-                Event Name
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: primary,
-                  color: secondary,
-                  textTransform: "none",
-                }}
-              >
-                Volunteer Event
-              </Button>
-            </Stack>
-          </Box>
+            <Typography
+              variant="subtitle2"
+              sx={{
+                fontSize: { xs: "10px", md: "15px" },
+              }}
+            >
+              {event && event.time}
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              sx={{ fontSize: { xs: "10px", md: "15px" } }}
+            >
+              {event && event.location}
+            </Typography>
+          </Stack>
         </Box>
+        <Stack spacing={2}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontSize: { xs: "25px", md: "30px" },
+              fontWeight: "bold",
+              color: secondary,
+              paddingTop: "20px",
+              textAlign: "center",
+            }}
+          >
+            {event && event.name}
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: primary,
+              color: secondary,
+              textTransform: "none",
+              "&:hover": {
+                backgroundColor: secondary,
+                color: primary,
+              },
+            }}
+          >
+            Volunteer Event
+          </Button>
+        </Stack>
       </Box>
     </Box>
   );

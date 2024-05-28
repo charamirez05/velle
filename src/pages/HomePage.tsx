@@ -1,31 +1,19 @@
-import React, { useEffect, useState } from "react";
 import Hero from "../components/Hero";
-import EventCard from "../components/EventCard";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { primary, secondary } from "../constants/colors";
-import { supabase } from "../database/supabaseClient";
+import EventsListing from "../components/EventsListing";
+import useEvents from "../services/useEvents";
+import { EventLoading } from "../components/EventLoading";
 
 function HomePage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  const [events, setEvents] = useState<any[] | null>([]);
+  const { data, isLoading } = useEvents();
 
-  useEffect(() => {
-    getCountries();
-  }, []);
-
-  async function getCountries() {
-    const { data } = await supabase.from("events").select();
-    setEvents(data);
-  }
+  if (isLoading) return <EventLoading loading={isLoading} />;
 
   return (
     <Box>
       <Hero />
-      <ul>
-        {events!.map((event) => (
-          <li key={event.id}>{event.name}</li>
-        ))}
-      </ul>
+
       <Box
         sx={{
           backgroundColor: "white", // bg-white
@@ -35,15 +23,20 @@ function HomePage() {
           borderRadius: "10px", // rounded-md (8px border radius)
         }}
       >
-        <Typography>Events in Current Month</Typography>
+        <Box
+          display="flex"
+          justifyContent="center"
+          sx={{ paddingBottom: "20px" }}
+        >
+          <Typography
+            variant="h5"
+            sx={{ color: secondary, fontWeight: "bold" }}
+          >
+            Events in Current Month
+          </Typography>
+        </Box>
 
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {events?.map((event) => (
-            <Grid item xs={4}>
-              <EventCard event={event!} />
-            </Grid>
-          ))}
-        </Grid>
+        <EventsListing events={data!} />
 
         <Box display="flex" justifyContent="center" sx={{ paddingTop: "20px" }}>
           <Button
@@ -52,6 +45,10 @@ function HomePage() {
               backgroundColor: primary,
               color: secondary,
               textTransform: "none",
+              "&:hover": {
+                backgroundColor: secondary,
+                color: primary,
+              },
             }}
           >
             View All Events
@@ -68,38 +65,20 @@ function HomePage() {
           borderRadius: "10px", // rounded-md (8px border radius)
         }}
       >
-        <Typography>Events in Next Months</Typography>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
+        <Box
+          display="flex"
+          justifyContent="center"
+          sx={{ paddingBottom: "20px" }}
+        >
+          <Typography
+            variant="h5"
+            sx={{ color: secondary, fontWeight: "bold" }}
+          >
+            Events in Next Months
+          </Typography>
+        </Box>
 
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-          <Grid item xs={4}>
-            <EventCard />
-          </Grid>
-        </Grid>
-
+        <EventsListing events={data!} />
         <Box display="flex" justifyContent="center" sx={{ paddingTop: "20px" }}>
           <Button
             variant="contained"

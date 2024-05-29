@@ -1,11 +1,36 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+
 import { secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
 import useEvents from "../services/eventServices/useEvents";
+import { useEventStore } from "../store/eventStore";
+import { IEvent } from "../models/event";
 
 function EventsPage() {
-  const { data, isLoading } = useEvents();
+  const { data } = useEvents();
+  const { events } = useEventStore();
+
+  const filteredEvents = ((data, events) => {
+    const filteredEvents: IEvent[] = [];
+
+    // Loop through each event in the 'data' array
+    data &&
+      data!.forEach((dataEvent) => {
+        // Check if the 'dataEvent' is present in the 'events' array
+        const isDuplicate = events.some((event) => {
+          // Assuming events have unique identifiers like 'id'
+          return event.id === dataEvent.id; // Adjust the comparison based on your object structure
+        });
+
+        // If 'dataEvent' is not found in 'events', add it to the 'filteredEvents' array
+        if (!isDuplicate) {
+          filteredEvents.push(dataEvent);
+        }
+      });
+
+    return filteredEvents;
+  })(data, events);
+
   return (
     <Box>
       <Box sx={{ padding: "20px" }}>
@@ -24,7 +49,7 @@ function EventsPage() {
             borderRadius: "10px", // rounded-md (8px border radius)
           }}
         >
-          <EventsListing events={data} />
+          <EventsListing events={filteredEvents} isDashboad={false} />
         </Box>
       </Box>
     </Box>

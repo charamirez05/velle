@@ -1,16 +1,13 @@
-import Hero from "../components/Hero";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { buttonColor, primary, secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
-import useEvents from "../services/eventServices/useEvents";
-import { EventLoading } from "../components/EventLoading";
 import { useUserStore } from "../store/userStore";
+import { useEventStore } from "../store/eventStore";
 
 function HomePage() {
-  const { data, isLoading } = useEvents();
   const { user } = useUserStore();
 
-  if (isLoading) return <EventLoading loading={isLoading} />;
+  const { events } = useEventStore();
 
   return (
     <Box>
@@ -42,24 +39,48 @@ function HomePage() {
           </Typography>
         </Box>
 
-        <EventsListing events={data!} />
-
-        <Box display="flex" justifyContent="center" sx={{ paddingTop: "20px" }}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: primary,
-              color: secondary,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: secondary,
-                color: primary,
-              },
-            }}
-          >
-            View All Events
-          </Button>
-        </Box>
+        {events!.filter((event) => {
+          const eventMonth = new Date(event.date).toISOString().slice(5, 7);
+          return eventMonth === "05";
+        }).length !== 0 ? (
+          <>
+            <EventsListing
+              events={events!
+                .filter((event) => {
+                  const eventMonth = new Date(event.date)
+                    .toISOString()
+                    .slice(5, 7);
+                  return eventMonth === "05";
+                })
+                .slice(0, 4)}
+              isDashboad={true}
+            />
+            <Box
+              display="flex"
+              justifyContent="center"
+              sx={{ paddingTop: "20px" }}
+            >
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: primary,
+                  color: secondary,
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: buttonColor,
+                    color: primary,
+                  },
+                }}
+              >
+                View All Events
+              </Button>
+            </Box>
+          </>
+        ) : (
+          <Box display="flex" justifyContent="center">
+            <Typography>No events joined for the following months</Typography>
+          </Box>
+        )}
       </Box>
 
       <Box
@@ -84,23 +105,48 @@ function HomePage() {
           </Typography>
         </Box>
 
-        <EventsListing events={data!} />
-        <Box display="flex" justifyContent="center" sx={{ paddingTop: "20px" }}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: primary,
-              color: secondary,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: buttonColor,
-                color: primary,
-              },
-            }}
-          >
-            View All Events
-          </Button>
-        </Box>
+        {events!.filter((event) => {
+          const eventMonth = new Date(event.date).toISOString().slice(5, 7);
+          return eventMonth !== "05";
+        }).length !== 0 ? (
+          <>
+            <EventsListing
+              events={events!
+                .filter((event) => {
+                  const eventMonth = new Date(event.date)
+                    .toISOString()
+                    .slice(5, 7);
+                  return eventMonth !== "05";
+                })
+                .slice(0, 4)}
+              isDashboad={true}
+            />
+            <Box
+              display="flex"
+              justifyContent="center"
+              sx={{ paddingTop: "20px" }}
+            >
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: primary,
+                  color: secondary,
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: buttonColor,
+                    color: primary,
+                  },
+                }}
+              >
+                View All Events
+              </Button>
+            </Box>
+          </>
+        ) : (
+          <Box display="flex" justifyContent="center">
+            <Typography>No events joined for the following months</Typography>
+          </Box>
+        )}
       </Box>
     </Box>
   );

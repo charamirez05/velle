@@ -14,7 +14,13 @@ import { useUserStore } from "../store/userStore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-function EventCard({ event }: { event: IEvent }) {
+function EventCard({
+  event,
+  isDashboad,
+}: {
+  event: IEvent;
+  isDashboad: boolean;
+}) {
   const { user } = useUserStore();
   const joinEvent = useJoinEvent();
   const navigate = useNavigate();
@@ -98,27 +104,31 @@ function EventCard({ event }: { event: IEvent }) {
           {event && event.description}
         </Typography>
 
-        <CardActions sx={{ paddingTop: "20px" }}>
-          <Button
-            variant="contained"
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
+        {!isDashboad && (
+          <>
+            <CardActions sx={{ paddingTop: "20px" }}>
+              <Button
+                variant="contained"
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
 
-              backgroundColor: primary,
-              color: secondary,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: buttonColor,
-                color: primary,
-              },
-            }}
-            onClick={handleViewEvent}
-          >
-            Join Event
-          </Button>
-        </CardActions>
+                  backgroundColor: primary,
+                  color: secondary,
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: buttonColor,
+                    color: primary,
+                  },
+                }}
+                onClick={handleViewEvent}
+              >
+                Join Event
+              </Button>
+            </CardActions>
+          </>
+        )}
       </CardContent>
     </Card>
   );

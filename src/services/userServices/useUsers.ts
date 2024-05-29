@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../../database/supabaseClient";
 import { useUserStore } from "../../store/userStore";
 import { IUser } from "../../models/user";
+import { getEventsByUser } from "../eventServices/events";
+import { useEventStore } from "../../store/eventStore";
 
 export function useGetUser(id: string) {
   return useQuery({
@@ -24,6 +26,8 @@ export function useSignIn() {
   const navigate = useNavigate();
   const { user, addUser } = useUserStore();
 
+  const { events, updateEvents } = useEventStore();
+
   return useMutation({
     mutationFn: userSignIn,
     onError: (error: any) => {
@@ -34,8 +38,11 @@ export function useSignIn() {
       console.log(data);
       try {
         const userData = await getUserById(data.id);
+        const eventsDate = await getEventsByUser(data.id);
 
         addUser(userData[0]);
+        updateEvents(eventsDate!);
+
         toast.success("Sign-in successfully!");
 
         // Navigate to a different page if necessary

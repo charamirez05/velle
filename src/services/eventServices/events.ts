@@ -40,3 +40,33 @@ export async function createEvent(newEvent: IEvent) {
 
   return data;
 }
+
+export async function getEventsByUser(userid: string) {
+  const { data: userEvents, error: userEventsError } = await supabase
+    .from("user_events")
+    .select("event_id")
+    .eq("user_id", userid);
+
+  if (userEventsError) {
+    console.error("Error fetching user events:", userEventsError);
+    return null;
+  }
+
+  // Extract event IDs
+  const eventIds = userEvents.map((ue) => ue.event_id);
+
+  // Fetch event details from the events table
+  const { data: events, error: eventsError } = await supabase
+    .from("events")
+    .select("*")
+    .in("id", eventIds);
+
+  if (eventsError) {
+    console.error("Error fetching events:", eventsError);
+    return null;
+  }
+
+  console.log(events);
+
+  return events;
+}

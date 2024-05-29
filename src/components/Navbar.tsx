@@ -1,5 +1,5 @@
 import logo from "../images/logo.png";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -7,7 +7,6 @@ import {
   Divider,
   Drawer,
   IconButton,
-  InputBase,
   List,
   ListItem,
   Stack,
@@ -22,7 +21,7 @@ import { useUserStore } from "../store/userStore";
 import ViewComfyAltIcon from "@mui/icons-material/ViewComfyAlt";
 
 function Navbar() {
-  const { user, addUser } = useUserStore();
+  const { user } = useUserStore();
 
   const navigate = useNavigate();
 
@@ -138,7 +137,7 @@ function Navbar() {
                       </Button>
                     </NavLink>
                   </ListItem>
-                  <ListItem key={"create"} disablePadding>
+                  <ListItem key={"view"} disablePadding>
                     <NavLink to="/events">
                       <Button
                         variant="text"

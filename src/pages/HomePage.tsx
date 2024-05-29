@@ -38,7 +38,7 @@ function HomePage() {
             variant="h5"
             sx={{ color: secondary, fontWeight: "bold" }}
           >
-            Events in Current Month
+            Joined Volunteering Events This Month
           </Typography>
         </Box>
 
@@ -64,11 +64,11 @@ function HomePage() {
 
       <Box
         sx={{
-          backgroundColor: "white", // bg-white
-          padding: { xs: "10px", md: "20px" }, // px-6 (6 * 4px = 24px)
-          margin: { xs: "10px", md: "10px" }, // m-4 (4 * 4px = 16px)
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // shadow-md
-          borderRadius: "10px", // rounded-md (8px border radius)
+          backgroundColor: "white",
+          padding: { xs: "10px", md: "20px" },
+          margin: { xs: "10px", md: " 30px 10px 10px 10px" },
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          borderRadius: "10px",
         }}
       >
         <Box
@@ -80,7 +80,7 @@ function HomePage() {
             variant="h5"
             sx={{ color: secondary, fontWeight: "bold" }}
           >
-            Events in Next Months
+            Joined Volunteering Events in Next Months
           </Typography>
         </Box>
 

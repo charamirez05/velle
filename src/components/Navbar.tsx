@@ -134,7 +134,25 @@ function Navbar() {
                       Create Forum
                     </Button>
                   </ListItem>
-
+                  <ListItem key={"create"} disablePadding>
+                    <NavLink to="/events">
+                      <Button
+                        variant="text"
+                        sx={{
+                          marginLeft: "15px",
+                          fontSize: { xs: "15px", md: "25px" },
+                          color: "#3F826D",
+                          "&:hover": {
+                            color: "#FF725B",
+                          },
+                          textTransform: "none",
+                        }}
+                        startIcon={<Add sx={{ color: "#E2725B" }} />}
+                      >
+                        View All Events
+                      </Button>
+                    </NavLink>
+                  </ListItem>
                   <ListItem key={"All"} disablePadding></ListItem>
                   <ListItem key={"general"} disablePadding></ListItem>
                   <ListItem key={"math"} disablePadding></ListItem>

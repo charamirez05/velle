@@ -1,16 +1,51 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { primary, secondary } from "../constants/colors";
 import { IEvent } from "../models/event";
+import { useJoinEvent } from "../services/eventServices/useEvents";
+import { useUserStore } from "../store/userStore";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function EventCard({ event }: { event: IEvent }) {
+  const { user } = useUserStore();
+  const joinEvent = useJoinEvent();
+  const navigate = useNavigate();
+  const handleViewEvent = () => {
+    if (Object.keys(user).length === 0) {
+      toast.error("Sign-in first!");
+      navigate("/sign-in");
+    } else {
+      joinEvent.mutate({
+        eventid: event.id,
+        userid: user.id,
+      });
+    }
+  };
   return (
-    <Box sx={{ padding: "0px 0px 10px 0" }}>
-      <Box
+    <Card
+      sx={{
+        height: "250px", // Fixed height
+        width: "100%", // Ensure it takes full width of Grid item
+        display: "flex",
+        flexDirection: "column",
+        marginBottom: "20px",
+      }}
+    >
+      <CardContent
         sx={{
-          padding: "20px",
-          borderBottom: "3px solid #A531B4",
-          borderRadius: "8px", // rounded-lg (lg corresponds to 8px border radius)
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // shadow-md
+          padding: "10px",
+          height: "250px", // Fixed height
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between", // Adjust content spacing as needed
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
@@ -38,22 +73,39 @@ function EventCard({ event }: { event: IEvent }) {
             </Typography>
           </Stack>
         </Box>
-        <Stack spacing={2}>
-          <Typography
-            variant="h3"
-            sx={{
-              fontSize: { xs: "25px", md: "30px" },
-              fontWeight: "bold",
-              color: secondary,
-              paddingTop: "20px",
-              textAlign: "center",
-            }}
-          >
-            {event && event.name}
-          </Typography>
+
+        <Typography
+          variant="h3"
+          sx={{
+            fontSize: { xs: "25px", md: "30px" },
+            fontWeight: "bold",
+            color: secondary,
+            paddingTop: "20px",
+            textAlign: "center",
+          }}
+        >
+          {event && event.name}
+        </Typography>
+
+        <Typography
+          variant="h3"
+          sx={{
+            fontSize: { xs: "10px", md: "15px" },
+            color: secondary,
+            textAlign: "center",
+          }}
+        >
+          {event && event.description}
+        </Typography>
+
+        <CardActions sx={{ paddingTop: "20px" }}>
           <Button
             variant="contained"
             sx={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+
               backgroundColor: primary,
               color: secondary,
               textTransform: "none",
@@ -62,12 +114,13 @@ function EventCard({ event }: { event: IEvent }) {
                 color: primary,
               },
             }}
+            onClick={handleViewEvent}
           >
-            Volunteer Event
+            Join Event
           </Button>
-        </Stack>
-      </Box>
-    </Box>
+        </CardActions>
+      </CardContent>
+    </Card>
   );
 }
 

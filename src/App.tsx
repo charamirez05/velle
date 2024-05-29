@@ -11,6 +11,7 @@ import SignInPage from "./pages/SignInPage";
 import RegisterPage from "./pages/RegisterPage";
 import SplashPage from "./pages/SplashPage";
 import ProfilePage from "./pages/ProfilePage";
+import EventsPage from "./pages/EventsPage";
 
 function App() {
   const router = createBrowserRouter(
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/events" element={<EventsPage />} />
       </Route>
     )
   );

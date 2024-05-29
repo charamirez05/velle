@@ -14,7 +14,7 @@ function EventsListing({ events }: { events: IEvent[] }) {
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       {events &&
         events.map((event) => (
-          <Grid item xs={6} key={event.id}>
+          <Grid item xs={6} sm={6} md={6} key={event.id}>
             <EventCard event={event} />
           </Grid>
         ))}

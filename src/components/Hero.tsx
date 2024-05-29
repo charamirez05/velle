@@ -1,10 +1,16 @@
 import { Box, Typography } from "@mui/material";
 
 import { secondary } from "../constants/colors";
+import { useUserStore } from "../store/userStore";
 
 function Hero() {
+  const { user, addUser } = useUserStore();
+
   return (
     <Box style={{ textAlign: "center" }}>
+      <Typography variant="h1">
+        {Object.keys(user).length === 0 ? "yehey" : user.name}
+      </Typography>
       <Typography
         variant="h2"
         sx={{

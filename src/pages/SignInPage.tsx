@@ -18,9 +18,6 @@ function SignInPage() {
   const { errors } = formState;
 
   const signIn = useSignIn();
-  const { user, addUser } = useUserStore();
-
-  const getUser = useGetUser(signIn.data?.id || ""); // Pass userId from signIn.data
 
   const submitForm = (data: any) => {
     signIn.mutate({
@@ -28,16 +25,6 @@ function SignInPage() {
       password: data.password,
     });
   };
-
-  useEffect(() => {
-    // Check if sign-in was successful and user data is available
-    if (signIn.isSuccess && signIn.data) {
-      getUser.refetch(); // Trigger refetch to fetch user data
-      addUser(getUser.data);
-    }
-  }, [signIn.isSuccess, signIn.data]);
-
-  console.log(user);
 
   return (
     <Box

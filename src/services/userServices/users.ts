@@ -2,25 +2,6 @@ import { toast } from "react-toastify";
 import { supabase } from "../../database/supabaseClient";
 import { IUser } from "../../models/user";
 
-export async function userSignIn({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email,
-    password: password,
-  });
-
-  if (error) {
-    throw error;
-  }
-
-  return data.user;
-}
-
 async function registerUser(email: string, password: string) {
   console.log(email, password);
   const { data, error } = await supabase.auth.admin.createUser({
@@ -49,12 +30,12 @@ async function inviteUser(email: string) {
   return null;
 }
 
-async function createUserProfile(id: string, newUser: IUser) {
-  newUser.id = id;
+export async function createUserProfile(newUser: IUser) {
+  console.log("hyo", newUser);
   const { data, error } = await supabase.from("users").insert(newUser);
 
   if (error) {
-    throw error;
+    return error;
   }
 
   return data;
@@ -62,11 +43,11 @@ async function createUserProfile(id: string, newUser: IUser) {
 
 export async function createUser(newUser: IUser) {
   try {
+    console.log(newUser);
     const user = await registerUser(newUser.email, newUser.password);
 
-    if (user) {
-      createUserProfile(user.id, newUser);
-    }
+    if (user) newUser.id = user.id;
+    createUserProfile(newUser);
 
     return;
   } catch (error) {
@@ -75,13 +56,32 @@ export async function createUser(newUser: IUser) {
   }
 }
 
-export async function getUserById(id: string) {
-  const { data, error } = await supabase.from("users").select("*").eq("id", id);
+export async function getUserById(userid: string) {
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("id", userid);
 
-  if (error) return error;
+  if (error) throw error;
 
-  console.log(data);
-  if (data) {
-    return data[0];
+  return data;
+}
+
+export async function userSignIn({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
+  });
+
+  if (error) {
+    throw error;
   }
+
+  return data.user;
 }

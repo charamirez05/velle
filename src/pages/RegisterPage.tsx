@@ -20,7 +20,7 @@ function RegisterPage() {
 
   const submitForm = (data: any) => {
     registerUser.mutate({
-      id: "",
+      id: crypto.randomUUID(),
       name: data.name,
       address: data.address,
       contactNumber: data.contacNumber,

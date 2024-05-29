@@ -1,4 +1,5 @@
 import { supabase } from "../../database/supabaseClient";
+import { IEvent } from "../../models/event";
 
 export async function getAllEvents() {
   const { data, error } = await supabase.from("events").select();
@@ -24,6 +25,17 @@ export async function userJoinEvent({
 
   if (error) {
     throw error;
+  }
+
+  return data;
+}
+
+export async function createEvent(newEvent: IEvent) {
+  const { data, error } = await supabase.from("events").insert(newEvent);
+
+  if (error) {
+    console.log(error);
+    return error;
   }
 
   return data;

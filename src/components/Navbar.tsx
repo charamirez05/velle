@@ -102,34 +102,41 @@ function Navbar() {
 
                   <Divider />
                   <ListItem key={"home"} disablePadding>
-                    <Button
-                      variant="text"
-                      sx={{
-                        marginLeft: "15px",
-                        fontSize: { xs: "15px", md: "25px" },
-                        color: secondary,
+                    <NavLink to="/home" style={{ textDecoration: "none" }}>
+                      <Button
+                        variant="text"
+                        sx={{
+                          marginLeft: "15px",
+                          fontSize: { xs: "15px", md: "25px" },
+                          color: secondary,
 
-                        textTransform: "none",
-                      }}
-                      startIcon={<Home sx={{ color: buttonColor }} />}
-                    >
-                      Home
-                    </Button>
+                          textTransform: "none",
+                        }}
+                        startIcon={<Home sx={{ color: buttonColor }} />}
+                      >
+                        Home
+                      </Button>
+                    </NavLink>
                   </ListItem>
                   <ListItem key={"create"} disablePadding>
-                    <Button
-                      variant="text"
-                      sx={{
-                        marginLeft: "15px",
-                        fontSize: { xs: "15px", md: "25px" },
-                        color: secondary,
-
-                        textTransform: "none",
-                      }}
-                      startIcon={<Add sx={{ color: buttonColor }} />}
+                    <NavLink
+                      to="/create-event"
+                      style={{ textDecoration: "none" }}
                     >
-                      Create Volunteering Event
-                    </Button>
+                      <Button
+                        variant="text"
+                        sx={{
+                          marginLeft: "15px",
+                          fontSize: { xs: "15px", md: "25px" },
+                          color: secondary,
+
+                          textTransform: "none",
+                        }}
+                        startIcon={<Add sx={{ color: buttonColor }} />}
+                      >
+                        Create Volunteering Event
+                      </Button>
+                    </NavLink>
                   </ListItem>
                   <ListItem key={"create"} disablePadding>
                     <NavLink to="/events">
@@ -150,12 +157,6 @@ function Navbar() {
                       </Button>
                     </NavLink>
                   </ListItem>
-                  <ListItem key={"All"} disablePadding></ListItem>
-                  <ListItem key={"general"} disablePadding></ListItem>
-                  <ListItem key={"math"} disablePadding></ListItem>
-                  <ListItem key={"popculture"} disablePadding></ListItem>
-                  <ListItem key={"science"} disablePadding></ListItem>
-                  <ListItem key={"foreign"} disablePadding></ListItem>
                 </List>
                 <Divider />
               </Box>

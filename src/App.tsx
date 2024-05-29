@@ -12,6 +12,7 @@ import RegisterPage from "./pages/RegisterPage";
 import SplashPage from "./pages/SplashPage";
 import ProfilePage from "./pages/ProfilePage";
 import EventsPage from "./pages/EventsPage";
+import CreateEventPage from "./pages/CreateEventPage";
 
 function App() {
   const router = createBrowserRouter(
@@ -23,6 +24,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/create-event" element={<CreateEventPage />} />
       </Route>
     )
   );

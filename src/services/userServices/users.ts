@@ -23,10 +23,10 @@ async function inviteUser(email: string) {
 }
 
 export async function createUserProfile(newUser: IUser) {
-  console.log("hyo", newUser);
   const { data, error } = await supabase.from("users").insert(newUser);
 
   if (error) {
+    console.log(error);
     return error;
   }
 
@@ -35,21 +35,20 @@ export async function createUserProfile(newUser: IUser) {
 
 export async function createUser(newUser: IUser) {
   try {
-    console.log(newUser);
     const user = await registerUser(newUser.email, newUser.password);
 
     if (user) newUser.id = user.id;
 
+    createUserProfile(newUser);
+
     //naa limit per hour
-    const { error: magicLinkError } =
+    /* const { error: magicLinkError } =
       await supabase.auth.admin.inviteUserByEmail(newUser.email);
 
     //Has a limit of sending magic link emails - 3 per hour
-    if (magicLinkError) {
+     if (magicLinkError) {
       throw magicLinkError;
-    } else {
-      createUserProfile(newUser);
-    }
+    } else {  */
 
     return;
   } catch (error) {

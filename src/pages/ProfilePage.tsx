@@ -1,27 +1,37 @@
 import { Box, Typography, Stack, TextField, Button } from "@mui/material";
-
 import { secondary, primary } from "../constants/colors";
 import { useUpdateUser } from "../services/userServices/useUsers";
-
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { IUser } from "../models/user";
 import { useUserStore } from "../store/userStore";
 
 function ProfilePage() {
   const { user } = useUserStore();
 
+  const parsedPassions =
+    user.passions && user.passions.map((p) => JSON.parse(p));
+
   const form = useForm<IUser>({
     defaultValues: {
       name: user.name,
       address: user.address,
       contactNumber: user.contactNumber,
+      birthDate: user.birthDate,
       email: user.email,
+      passions: parsedPassions,
     },
   });
 
-  const { register, handleSubmit, formState } = form;
+  console.log(user);
+
+  const { register, handleSubmit, formState, control } = form;
 
   const { errors } = formState;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "passions",
+  });
 
   const updateUser = useUpdateUser();
 
@@ -31,9 +41,7 @@ function ProfilePage() {
     console.log(user);
     updateUser.mutate({
       userid: user.id,
-      name: data.name,
-      address: data.address,
-      contactnumber: data.contactNumber,
+      updatedUser: data,
     });
   };
 
@@ -117,6 +125,19 @@ function ProfilePage() {
             />
 
             <TextField
+              label="Date of Birth"
+              type="date"
+              defaultValue={"2024-05-30"}
+              sx={{
+                "& .MuiInputLabel-root": {
+                  color: secondary,
+                },
+              }}
+              {...register("birthDate")}
+              error={!!errors.birthDate}
+              helperText={errors.birthDate?.message}
+            />
+            <TextField
               label="Email Address"
               type="email"
               sx={{
@@ -127,6 +148,66 @@ function ProfilePage() {
               {...register("email")}
               disabled
             />
+
+            <Box>
+              <Stack direction="row" spacing={1} sx={{ marginBottom: "10px" }}>
+                <Typography variant="subtitle1" sx={{ color: secondary }}>
+                  Passions
+                </Typography>
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    color: secondary,
+                    bgcolor: primary,
+                    textTransform: "none",
+                    width: "fir-content",
+                    "&:hover": {
+                      color: primary,
+                      backgroundColor: secondary,
+                    },
+                  }}
+                  onClick={() => append({ passion: "" })}
+                >
+                  Add passion
+                </Button>
+              </Stack>
+
+              {fields.map((field, index) => {
+                return (
+                  <Stack
+                    direction="row"
+                    key={field.id}
+                    sx={{ marginBottom: "5px" }}
+                  >
+                    <TextField
+                      size="small"
+                      type="text"
+                      {...register(`passions.${index}.passion` as const)}
+                    />
+                    {index > 0 && (
+                      <Button
+                        variant="contained"
+                        size="small"
+                        sx={{
+                          color: secondary,
+                          bgcolor: primary,
+                          textTransform: "none",
+                          width: "fir-content",
+                          "&:hover": {
+                            color: primary,
+                            backgroundColor: secondary,
+                          },
+                        }}
+                        onClick={() => remove(index)}
+                      >
+                        Remove
+                      </Button>
+                    )}
+                  </Stack>
+                );
+              })}
+            </Box>
 
             <Button
               variant="contained"

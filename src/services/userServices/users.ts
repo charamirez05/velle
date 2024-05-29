@@ -89,18 +89,20 @@ export async function userSignIn({
 
 export async function updateUserDetails({
   userid,
-  name,
-  address,
-  contactnumber,
+  updatedUser,
 }: {
   userid: string;
-  name: string;
-  address: string;
-  contactnumber: string;
+  updatedUser: IUser;
 }) {
   const { error } = await supabase
     .from("users")
-    .update({ name: name, address: address, contactNumber: contactnumber })
+    .update({
+      name: updatedUser.name,
+      address: updatedUser.address,
+      contactNumber: updatedUser.contactNumber,
+      birthDate: updatedUser.birthDate,
+      passions: updatedUser.passions,
+    })
     .eq("id", userid);
 
   if (error) {

@@ -15,10 +15,11 @@ import {
   Typography,
 } from "@mui/material";
 
-import { primary, secondary } from "../constants/colors";
+import { buttonColor, primary, secondary } from "../constants/colors";
 import { Home, Add } from "@mui/icons-material";
 import { useState } from "react";
 import { useUserStore } from "../store/userStore";
+import ViewComfyAltIcon from "@mui/icons-material/ViewComfyAlt";
 
 function Navbar() {
   const { user, addUser } = useUserStore();
@@ -28,7 +29,7 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
+    if (Object.keys(user).length !== 0) setOpen(newOpen);
   };
   return (
     <AppBar>
@@ -90,7 +91,7 @@ function Navbar() {
                         variant="h6"
                         sx={{
                           fontStyle: "italic",
-                          color: secondary,
+                          color: buttonColor,
                           fontSize: { xs: "12px", md: "22px" },
                         }}
                       >
@@ -106,13 +107,11 @@ function Navbar() {
                       sx={{
                         marginLeft: "15px",
                         fontSize: { xs: "15px", md: "25px" },
-                        color: "#3F826D",
-                        "&:hover": {
-                          color: "#FF725B",
-                        },
+                        color: secondary,
+
                         textTransform: "none",
                       }}
-                      startIcon={<Home sx={{ color: "#E2725B" }} />}
+                      startIcon={<Home sx={{ color: buttonColor }} />}
                     >
                       Home
                     </Button>
@@ -123,15 +122,13 @@ function Navbar() {
                       sx={{
                         marginLeft: "15px",
                         fontSize: { xs: "15px", md: "25px" },
-                        color: "#3F826D",
-                        "&:hover": {
-                          color: "#FF725B",
-                        },
+                        color: secondary,
+
                         textTransform: "none",
                       }}
-                      startIcon={<Add sx={{ color: "#E2725B" }} />}
+                      startIcon={<Add sx={{ color: buttonColor }} />}
                     >
-                      Create Forum
+                      Create Volunteering Event
                     </Button>
                   </ListItem>
                   <ListItem key={"create"} disablePadding>
@@ -141,13 +138,13 @@ function Navbar() {
                         sx={{
                           marginLeft: "15px",
                           fontSize: { xs: "15px", md: "25px" },
-                          color: "#3F826D",
-                          "&:hover": {
-                            color: "#FF725B",
-                          },
+                          color: secondary,
+
                           textTransform: "none",
                         }}
-                        startIcon={<Add sx={{ color: "#E2725B" }} />}
+                        startIcon={
+                          <ViewComfyAltIcon sx={{ color: buttonColor }} />
+                        }
                       >
                         View All Events
                       </Button>

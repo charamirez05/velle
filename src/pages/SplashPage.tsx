@@ -1,6 +1,6 @@
 import Hero from "../components/Hero";
 import { Box, Button, Typography } from "@mui/material";
-import { primary, secondary } from "../constants/colors";
+import { buttonColor, primary, secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
 import useEvents from "../services/eventServices/useEvents";
 import { EventLoading } from "../components/EventLoading";
@@ -45,8 +45,9 @@ function SplashPage() {
               backgroundColor: primary,
               color: secondary,
               textTransform: "none",
+
               "&:hover": {
-                backgroundColor: secondary,
+                backgroundColor: buttonColor,
                 color: primary,
               },
             }}
@@ -86,6 +87,10 @@ function SplashPage() {
               backgroundColor: primary,
               color: secondary,
               textTransform: "none",
+              "&:hover": {
+                backgroundColor: buttonColor,
+                color: primary,
+              },
             }}
           >
             View All Events

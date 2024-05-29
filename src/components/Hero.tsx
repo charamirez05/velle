@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import { secondary } from "../constants/colors";
+import { buttonColor, secondary } from "../constants/colors";
 import { useUserStore } from "../store/userStore";
 
 function Hero() {
@@ -19,7 +19,7 @@ function Hero() {
       <Typography
         variant="h6"
         sx={{
-          color: secondary,
+          color: buttonColor,
           fontStyle: "italic",
           fontSize: { xs: "15px", md: "20px" },
         }}

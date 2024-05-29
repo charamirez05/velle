@@ -19,6 +19,7 @@ export function useGetUser(id: string) {
     queryFn: () => getUserById(id),
   });
 }
+
 export function useSignIn() {
   const navigate = useNavigate();
   const { user, addUser } = useUserStore();

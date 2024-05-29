@@ -161,7 +161,7 @@ function RegisterPage() {
               }}
               disabled={registerUser.isPending}
             >
-              Create New Forum
+              Register
             </Button>
           </Stack>
         </form>

@@ -9,14 +9,6 @@ async function registerUser(email: string, password: string) {
     password: password,
   });
 
-  //naa limit per hour
-  /* const { error: magicLinkError } =
-    await supabase.auth.admin.inviteUserByEmail(email);
-
-  if (magicLinkError) {
-    throw magicLinkError;
-  } */
-
   if (error) {
     throw error;
   }
@@ -47,12 +39,22 @@ export async function createUser(newUser: IUser) {
     const user = await registerUser(newUser.email, newUser.password);
 
     if (user) newUser.id = user.id;
-    createUserProfile(newUser);
+
+    //naa limit per hour
+    const { error: magicLinkError } =
+      await supabase.auth.admin.inviteUserByEmail(newUser.email);
+
+    //Has a limit of sending magic link emails - 3 per hour
+    if (magicLinkError) {
+      throw magicLinkError;
+    } else {
+      createUserProfile(newUser);
+    }
 
     return;
   } catch (error) {
     console.error("SA USERS NI Error creating user:", error);
-    throw error; // Throw the error to be caught by useMutation
+    throw error;
   }
 }
 

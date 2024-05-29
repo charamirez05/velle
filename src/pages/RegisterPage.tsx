@@ -167,7 +167,8 @@ function RegisterPage() {
                     textTransform: "none",
                     width: "fir-content",
                     "&:hover": {
-                      color: secondary,
+                      color: primary,
+                      backgroundColor: secondary,
                     },
                   }}
                   onClick={() => append({ passion: "" })}
@@ -190,6 +191,7 @@ function RegisterPage() {
                     />
                     {index > 0 && (
                       <Button
+                        variant="contained"
                         size="small"
                         sx={{
                           color: secondary,
@@ -197,7 +199,8 @@ function RegisterPage() {
                           textTransform: "none",
                           width: "fir-content",
                           "&:hover": {
-                            color: secondary,
+                            color: primary,
+                            backgroundColor: secondary,
                           },
                         }}
                         onClick={() => remove(index)}

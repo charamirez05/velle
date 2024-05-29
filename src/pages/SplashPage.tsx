@@ -1,24 +1,18 @@
 import Hero from "../components/Hero";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { primary, secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
 import useEvents from "../services/eventServices/useEvents";
 import { EventLoading } from "../components/EventLoading";
-import { useUserStore } from "../store/userStore";
 
-function HomePage() {
+function SplashPage() {
   const { data, isLoading } = useEvents();
-  const { user } = useUserStore();
 
   if (isLoading) return <EventLoading loading={isLoading} />;
 
   return (
     <Box>
-      <Box sx={{ padding: "20px" }}>
-        <Typography variant="h5" sx={{ color: secondary, fontWeight: "bold" }}>
-          <Typography> Welcome </Typography> {user.name}
-        </Typography>
-      </Box>
+      <Hero />
 
       <Box
         sx={{
@@ -102,4 +96,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default SplashPage;

@@ -85,3 +85,26 @@ export async function userSignIn({
 
   return data.user;
 }
+
+export async function updateUserDetails({
+  userid,
+  name,
+  address,
+  contactnumber,
+}: {
+  userid: string;
+  name: string;
+  address: string;
+  contactnumber: string;
+}) {
+  const { error } = await supabase
+    .from("users")
+    .update({ name: name, address: address, contactNumber: contactnumber })
+    .eq("id", userid);
+
+  if (error) {
+    throw error;
+  }
+
+  return userid;
+}

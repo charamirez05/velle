@@ -4,6 +4,7 @@ import {
   createUser,
   createUserProfile,
   getUserById,
+  updateUserDetails,
   userSignIn,
 } from "./users";
 import { toast } from "react-toastify";
@@ -32,12 +33,12 @@ export function useSignIn() {
       console.log(data);
       try {
         const userData = await getUserById(data.id);
-        console.log(userData[0]);
+
         addUser(userData[0]);
         toast.success("Sign-in successfully!");
 
         // Navigate to a different page if necessary
-        navigate("/");
+        navigate("/home");
       } catch (error) {
         if (error instanceof Error) {
           toast.error(error.message);
@@ -59,6 +60,35 @@ export function useRegister() {
     onSuccess: async (data: any) => {
       toast.success("Registered successfully!");
       navigate("/");
+    },
+  });
+}
+
+export function useUpdateUser() {
+  const navigate = useNavigate();
+  const { user, addUser } = useUserStore();
+
+  return useMutation({
+    mutationFn: updateUserDetails,
+    onError: (error: any) => {
+      toast.error(error.message);
+    },
+    onSuccess: async (data: any) => {
+      try {
+        console.log("hey", data);
+        const userData = await getUserById(data);
+
+        //Change the user in the userStore with the updated data
+        addUser(userData[0]);
+        toast.success("User information updated successfully!");
+        navigate("/home");
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error("An unexpected error occurred");
+        }
+      }
     },
   });
 }

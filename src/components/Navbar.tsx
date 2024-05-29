@@ -1,5 +1,5 @@
 import logo from "../images/logo.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -18,8 +18,11 @@ import {
 import { primary, secondary } from "../constants/colors";
 import { Home, Add } from "@mui/icons-material";
 import { useState } from "react";
+import { useUserStore } from "../store/userStore";
 
 function Navbar() {
+  const { user, addUser } = useUserStore();
+
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -142,36 +145,58 @@ function Navbar() {
                 <Divider />
               </Box>
             </Drawer>
-            <Typography
-              variant="h5"
-              sx={{
-                color: secondary,
-                fontSize: "30px",
-                fontWeight: "bolder",
-              }}
+
+            <NavLink
+              to={Object.keys(user).length === 0 ? "/" : "/home"}
+              style={{ textDecoration: "none" }}
             >
-              Velle
-            </Typography>
+              <Typography
+                variant="h5"
+                sx={{
+                  color: secondary,
+                  fontSize: "30px",
+                  fontWeight: "bolder",
+                }}
+              >
+                Velle
+              </Typography>
+            </NavLink>
           </Stack>
 
-          <Button
-            sx={{
-              fontWeight: "bold",
-              color: secondary,
-            }}
-            onClick={() => navigate("/sign-in")}
-          >
-            Sign In
-          </Button>
-          <Button
-            sx={{
-              fontWeight: "bold",
-              color: secondary,
-            }}
-            onClick={() => navigate("/register")}
-          >
-            Register
-          </Button>
+          {Object.keys(user).length === 0 ? (
+            <Box>
+              <Button
+                sx={{
+                  fontWeight: "bold",
+                  color: secondary,
+                }}
+                onClick={() => navigate("/sign-in")}
+              >
+                Sign In
+              </Button>
+              <Button
+                sx={{
+                  fontWeight: "bold",
+                  color: secondary,
+                }}
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </Button>
+            </Box>
+          ) : (
+            <>
+              <Button
+                sx={{
+                  fontWeight: "bold",
+                  color: secondary,
+                }}
+                onClick={() => navigate("/profile")}
+              >
+                Profile
+              </Button>
+            </>
+          )}
         </Stack>
       </Toolbar>
     </AppBar>

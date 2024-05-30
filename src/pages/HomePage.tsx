@@ -3,11 +3,20 @@ import { accentColor, primary, secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
 import { useUserStore } from "../store/userStore";
 import { useEventStore } from "../store/eventStore";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const { user } = useUserStore();
 
   const { events } = useEventStore();
+
+  const navigate = useNavigate();
+
+  const currentMonth = new Date().toISOString().slice(5, 7);
+
+  const handleViewEvents = (schedule: string) => {
+    navigate(`/events/${schedule}`);
+  };
 
   return (
     <Box>
@@ -41,7 +50,7 @@ function HomePage() {
 
         {events!.filter((event) => {
           const eventMonth = new Date(event.date).toISOString().slice(5, 7);
-          return eventMonth === "05";
+          return eventMonth === currentMonth;
         }).length !== 0 ? (
           <>
             <EventsListing
@@ -50,7 +59,7 @@ function HomePage() {
                   const eventMonth = new Date(event.date)
                     .toISOString()
                     .slice(5, 7);
-                  return eventMonth === "05";
+                  return eventMonth === currentMonth;
                 })
                 .slice(0, 4)}
               isDashboad={true}
@@ -71,6 +80,7 @@ function HomePage() {
                     color: primary,
                   },
                 }}
+                onClick={() => handleViewEvents("upcoming")}
               >
                 View All Events
               </Button>
@@ -107,7 +117,7 @@ function HomePage() {
 
         {events!.filter((event) => {
           const eventMonth = new Date(event.date).toISOString().slice(5, 7);
-          return eventMonth !== "05";
+          return eventMonth !== currentMonth;
         }).length !== 0 ? (
           <>
             <EventsListing
@@ -116,7 +126,7 @@ function HomePage() {
                   const eventMonth = new Date(event.date)
                     .toISOString()
                     .slice(5, 7);
-                  return eventMonth !== "05";
+                  return eventMonth !== currentMonth;
                 })
                 .slice(0, 4)}
               isDashboad={true}
@@ -137,6 +147,7 @@ function HomePage() {
                     color: primary,
                   },
                 }}
+                onClick={() => handleViewEvents("forthcoming")}
               >
                 View All Events
               </Button>

@@ -5,33 +5,55 @@ import EventsListing from "../components/EventsListing";
 import useEvents from "../services/eventServices/useEvents";
 import { useEventStore } from "../store/eventStore";
 import { IEvent } from "../models/event";
+import { useParams } from "react-router-dom";
+import { EventLoading } from "../components/EventLoading";
 
 function EventsPage() {
-  const { data } = useEvents();
+  const { type } = useParams();
+  const { data, isLoading } = useEvents();
   const { events } = useEventStore();
+
+  const currentMonth = new Date().toISOString().slice(5, 7);
 
   const filteredEvents = ((data, events) => {
     const filteredEvents: IEvent[] = [];
 
-    // Loop through each event in the 'data' array
     data &&
-      data!.forEach((dataEvent) => {
+      data!.forEach((dataEvent: IEvent) => {
         // Check if the 'dataEvent' is present in the 'events' array
-        const isDuplicate = events.some((event) => {
+
+        const isDuplicate = events!.some((event) => {
           // Assuming events have unique identifiers like 'id'
           return event.id === dataEvent.id; // Adjust the comparison based on your object structure
         });
 
-        // If 'dataEvent' is not found in 'events', add it to the 'filteredEvents' array
-        if (!isDuplicate) {
-          filteredEvents.push(dataEvent);
+        if (type === "all") {
+          // If 'dataEvent' is not found in 'events', add it to the 'filteredEvents' array
+          if (!isDuplicate) {
+            filteredEvents.push(dataEvent);
+          }
+          return filteredEvents;
+        } else {
+          if (isDuplicate) {
+            filteredEvents.push(dataEvent);
+          }
         }
       });
 
-    return filteredEvents;
+    if (type === "upcoming") {
+      return filteredEvents!.filter((event) => {
+        const eventMonth = new Date(event.date).toISOString().slice(5, 7);
+        return eventMonth === currentMonth;
+      });
+    } else {
+      return filteredEvents!.filter((event) => {
+        const eventMonth = new Date(event.date).toISOString().slice(5, 7);
+        return eventMonth !== currentMonth;
+      });
+    }
   })(data, events);
 
-  console.log(data);
+  if (isLoading) return <EventLoading loading={isLoading} />;
 
   return (
     <Box>
@@ -51,7 +73,7 @@ function EventsPage() {
             borderRadius: "10px", // rounded-md (8px border radius)
           }}
         >
-          <EventsListing events={filteredEvents} isDashboad={false} />
+          <EventsListing events={filteredEvents!} isDashboad={false} />
         </Box>
       </Box>
     </Box>

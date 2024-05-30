@@ -138,7 +138,7 @@ function Navbar() {
                     </NavLink>
                   </ListItem>
                   <ListItem key={"view"} disablePadding>
-                    <NavLink to="/events">
+                    <NavLink to="/events/all">
                       <Button
                         variant="text"
                         sx={{

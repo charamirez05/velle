@@ -17,17 +17,13 @@ function EventsPage() {
   console.log(events);
   const filteredEvents = ((data, events) => {
     const filteredEvents: IEvent[] = [];
+    const filteredJoinedEvents: IEvent[] = [];
 
     data &&
       data!.forEach((dataEvent: IEvent) => {
-        // Check if the 'dataEvent' is present in the 'events' array
-        const isDuplicate = events!.some((event) => {
-          // Assuming events have unique identifiers like 'id'
-          return event.id === dataEvent.id; // Adjust the comparison based on your object structure
-        });
+        const isDuplicate = events!.some((event) => event.id === dataEvent.id);
 
         if (type === "all") {
-          // If 'dataEvent' is not found in 'events', add it to the 'filteredEvents' array
           if (!isDuplicate) {
             filteredEvents.push(dataEvent);
           }
@@ -38,19 +34,25 @@ function EventsPage() {
         }
       });
 
-    if (type === "upcoming") {
-      filteredEvents!.filter((event) => {
-        const eventMonth = new Date(event.date).toISOString().slice(5, 7);
-        return eventMonth === currentMonth;
-      });
-    } else {
-      filteredEvents!.filter((event) => {
-        const eventMonth = new Date(event.date).toISOString().slice(5, 7);
-        return eventMonth !== currentMonth;
-      });
-    }
+    filteredEvents.forEach((e: IEvent) => {
+      if (type === "upcoming") {
+        if (new Date(e.date).toISOString().slice(5, 7) === currentMonth) {
+          filteredJoinedEvents.push(e);
+        }
+      } else if (type === "forthcoming") {
+        if (new Date(e.date).toISOString().slice(5, 7) !== currentMonth) {
+          filteredJoinedEvents.push(e);
+        }
+      }
+    });
 
-    return filteredEvents;
+    if (type === "upcoming") {
+      return filteredJoinedEvents;
+    } else if (type === "forthcoming") {
+      return filteredJoinedEvents;
+    } else {
+      return filteredEvents;
+    }
   })(data, events);
 
   if (isLoading) return <EventLoading loading={isLoading} />;
@@ -62,7 +64,11 @@ function EventsPage() {
           variant="h5"
           sx={{ color: secondary, fontWeight: "bold", paddingBottom: "20px" }}
         >
-          All Volunteer Events
+          {type === "all"
+            ? "All Volunteer Events"
+            : type === "upcoming"
+              ? "All Upcoming Events this Month"
+              : "All Forthcoming Events in the next Months"}
         </Typography>
         <Box
           sx={{
@@ -73,7 +79,10 @@ function EventsPage() {
             borderRadius: "10px", // rounded-md (8px border radius)
           }}
         >
-          <EventsListing events={filteredEvents!} isDashboad={false} />
+          <EventsListing
+            events={filteredEvents!}
+            isDashboad={type === "all" ? true : false}
+          />
         </Box>
       </Box>
     </Box>

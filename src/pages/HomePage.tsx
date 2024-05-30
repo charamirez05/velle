@@ -62,7 +62,7 @@ function HomePage() {
                   return eventMonth === currentMonth;
                 })
                 .slice(0, 4)}
-              isDashboad={true}
+              isDashboad={false}
             />
             <Box
               display="flex"
@@ -129,7 +129,7 @@ function HomePage() {
                   return eventMonth !== currentMonth;
                 })
                 .slice(0, 4)}
-              isDashboad={true}
+              isDashboad={false}
             />
             <Box
               display="flex"

@@ -104,7 +104,7 @@ function EventCard({
           {event && event.description}
         </Typography>
 
-        {!isDashboad && (
+        {isDashboad && (
           <>
             <CardActions sx={{ paddingTop: "20px" }}>
               <Button

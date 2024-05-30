@@ -1,7 +1,7 @@
 import { Box, Typography, Stack, TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { buttonColor, primary, secondary } from "../constants/colors";
+import { accentColor, primary, secondary } from "../constants/colors";
 import { useGetUser, useSignIn } from "../services/userServices/useUsers";
 import { IUserLogin, userLoginSchema } from "../models/user";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,7 +95,7 @@ function SignInPage() {
                 width: "100%", // w-full
                 textTransform: "none",
                 "&:hover": {
-                  backgroundColor: buttonColor,
+                  backgroundColor: accentColor,
                   color: primary,
                 },
               }}

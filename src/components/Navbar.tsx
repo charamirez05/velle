@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { buttonColor, primary, secondary } from "../constants/colors";
+import { accentColor, primary, secondary } from "../constants/colors";
 import { Home, Add } from "@mui/icons-material";
 import { useState } from "react";
 import { useUserStore } from "../store/userStore";
@@ -90,7 +90,7 @@ function Navbar() {
                         variant="h6"
                         sx={{
                           fontStyle: "italic",
-                          color: buttonColor,
+                          color: accentColor,
                           fontSize: { xs: "12px", md: "22px" },
                         }}
                       >
@@ -111,7 +111,7 @@ function Navbar() {
 
                           textTransform: "none",
                         }}
-                        startIcon={<Home sx={{ color: buttonColor }} />}
+                        startIcon={<Home sx={{ color: accentColor }} />}
                       >
                         Home
                       </Button>
@@ -131,7 +131,7 @@ function Navbar() {
 
                           textTransform: "none",
                         }}
-                        startIcon={<Add sx={{ color: buttonColor }} />}
+                        startIcon={<Add sx={{ color: accentColor }} />}
                       >
                         Create Volunteering Event
                       </Button>
@@ -149,7 +149,7 @@ function Navbar() {
                           textTransform: "none",
                         }}
                         startIcon={
-                          <ViewComfyAltIcon sx={{ color: buttonColor }} />
+                          <ViewComfyAltIcon sx={{ color: accentColor }} />
                         }
                       >
                         View All Events

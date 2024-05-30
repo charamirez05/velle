@@ -1,6 +1,6 @@
 import { Box, Typography, Stack, TextField, Button } from "@mui/material";
 import { useFieldArray, useForm } from "react-hook-form";
-import { primary, secondary } from "../constants/colors";
+import { accentColor, primary, secondary } from "../constants/colors";
 
 import { useRegister } from "../services/userServices/useUsers";
 import { IUser, UserSchema } from "../models/user";
@@ -168,7 +168,7 @@ function RegisterPage() {
                     width: "fir-content",
                     "&:hover": {
                       color: primary,
-                      backgroundColor: secondary,
+                      backgroundColor: accentColor,
                     },
                   }}
                   onClick={() => append({ passion: "" })}
@@ -200,7 +200,7 @@ function RegisterPage() {
                           width: "fir-content",
                           "&:hover": {
                             color: primary,
-                            backgroundColor: secondary,
+                            backgroundColor: accentColor,
                           },
                         }}
                         onClick={() => remove(index)}
@@ -225,7 +225,7 @@ function RegisterPage() {
                 width: "100%", // w-full
                 textTransform: "none",
                 "&:hover": {
-                  backgroundColor: secondary,
+                  backgroundColor: accentColor,
                   color: primary,
                 },
               }}

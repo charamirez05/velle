@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { buttonColor, primary, secondary } from "../constants/colors";
+import { accentColor, primary, secondary } from "../constants/colors";
 import { IEvent } from "../models/event";
 import { useJoinEvent } from "../services/eventServices/useEvents";
 import { useUserStore } from "../store/userStore";
@@ -118,7 +118,7 @@ function EventCard({
                   color: secondary,
                   textTransform: "none",
                   "&:hover": {
-                    backgroundColor: buttonColor,
+                    backgroundColor: accentColor,
                     color: primary,
                   },
                 }}

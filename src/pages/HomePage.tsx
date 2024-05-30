@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { buttonColor, primary, secondary } from "../constants/colors";
+import { accentColor, primary, secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
 import { useUserStore } from "../store/userStore";
 import { useEventStore } from "../store/eventStore";
@@ -67,7 +67,7 @@ function HomePage() {
                   color: secondary,
                   textTransform: "none",
                   "&:hover": {
-                    backgroundColor: buttonColor,
+                    backgroundColor: accentColor,
                     color: primary,
                   },
                 }}
@@ -133,7 +133,7 @@ function HomePage() {
                   color: secondary,
                   textTransform: "none",
                   "&:hover": {
-                    backgroundColor: buttonColor,
+                    backgroundColor: accentColor,
                     color: primary,
                   },
                 }}

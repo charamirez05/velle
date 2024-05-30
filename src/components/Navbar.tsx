@@ -19,16 +19,23 @@ import { Home, Add } from "@mui/icons-material";
 import { useState } from "react";
 import { useUserStore } from "../services/store/userStore";
 import ViewComfyAltIcon from "@mui/icons-material/ViewComfyAlt";
+import { useEventStore } from "../services/store/eventStore";
 
 function Navbar() {
-  const { user } = useUserStore();
-
+  const { user, resetUser } = useUserStore();
+  const { resetEvents } = useEventStore();
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     if (Object.keys(user).length !== 0) setOpen(newOpen);
+  };
+
+  const handleSignOut = () => {
+    navigate("/");
+    resetUser();
+    resetEvents();
   };
   return (
     <AppBar>
@@ -200,7 +207,7 @@ function Navbar() {
               </Button>
             </Box>
           ) : (
-            <>
+            <Box>
               <Button
                 sx={{
                   fontWeight: "bold",
@@ -210,7 +217,16 @@ function Navbar() {
               >
                 Profile
               </Button>
-            </>
+              <Button
+                sx={{
+                  fontWeight: "bold",
+                  color: secondary,
+                }}
+                onClick={handleSignOut}
+              >
+                Sign-out
+              </Button>
+            </Box>
           )}
         </Stack>
       </Toolbar>

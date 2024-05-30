@@ -31,6 +31,8 @@ function EventsPage() {
     return filteredEvents;
   })(data, events);
 
+  console.log(data);
+
   return (
     <Box>
       <Box sx={{ padding: "20px" }}>

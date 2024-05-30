@@ -48,8 +48,7 @@ export async function getEventsByUser(userid: string) {
     .eq("user_id", userid);
 
   if (userEventsError) {
-    console.error("Error fetching user events:", userEventsError);
-    return null;
+    throw userEventsError;
   }
 
   // Extract event IDs
@@ -62,11 +61,8 @@ export async function getEventsByUser(userid: string) {
     .in("id", eventIds);
 
   if (eventsError) {
-    console.error("Error fetching events:", eventsError);
-    return null;
+    throw userEventsError;
   }
-
-  console.log(events);
 
   return events;
 }

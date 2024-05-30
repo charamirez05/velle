@@ -24,7 +24,7 @@ function EventCard({
   const { user } = useUserStore();
   const joinEvent = useJoinEvent();
   const navigate = useNavigate();
-  const handleViewEvent = () => {
+  const handleJoinEvent = () => {
     if (Object.keys(user).length === 0) {
       toast.error("Sign-in first!");
       navigate("/sign-in");
@@ -122,7 +122,7 @@ function EventCard({
                     color: primary,
                   },
                 }}
-                onClick={handleViewEvent}
+                onClick={handleJoinEvent}
               >
                 Join Event
               </Button>

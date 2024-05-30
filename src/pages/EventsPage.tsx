@@ -13,14 +13,14 @@ function EventsPage() {
   const { events } = useEventStore();
 
   const currentMonth = new Date().toISOString().slice(5, 7);
-
+  console.log(data);
+  console.log(events);
   const filteredEvents = ((data, events) => {
     const filteredEvents: IEvent[] = [];
 
     data &&
       data!.forEach((dataEvent: IEvent) => {
         // Check if the 'dataEvent' is present in the 'events' array
-
         const isDuplicate = events!.some((event) => {
           // Assuming events have unique identifiers like 'id'
           return event.id === dataEvent.id; // Adjust the comparison based on your object structure
@@ -31,7 +31,6 @@ function EventsPage() {
           if (!isDuplicate) {
             filteredEvents.push(dataEvent);
           }
-          return filteredEvents;
         } else {
           if (isDuplicate) {
             filteredEvents.push(dataEvent);
@@ -40,16 +39,18 @@ function EventsPage() {
       });
 
     if (type === "upcoming") {
-      return filteredEvents!.filter((event) => {
+      filteredEvents!.filter((event) => {
         const eventMonth = new Date(event.date).toISOString().slice(5, 7);
         return eventMonth === currentMonth;
       });
     } else {
-      return filteredEvents!.filter((event) => {
+      filteredEvents!.filter((event) => {
         const eventMonth = new Date(event.date).toISOString().slice(5, 7);
         return eventMonth !== currentMonth;
       });
     }
+
+    return filteredEvents;
   })(data, events);
 
   if (isLoading) return <EventLoading loading={isLoading} />;

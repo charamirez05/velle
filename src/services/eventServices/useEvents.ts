@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
 import {
   createEvent,
   getAllEvents,
@@ -10,6 +9,7 @@ import { IEvent } from "../../models/event";
 import { toast } from "react-toastify";
 import { useEventStore } from "../store/eventStore";
 import { useUserStore } from "../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 const useEvents = () => {
   return useQuery<IEvent[], Error>({
@@ -38,6 +38,7 @@ export function useJoinEvent() {
 }
 
 export function useCreateEvent() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createEvent,
@@ -47,6 +48,7 @@ export function useCreateEvent() {
     onSuccess: async (data: any) => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
       toast.success("Event created successfully!");
+      navigate("/home");
     },
   });
 }

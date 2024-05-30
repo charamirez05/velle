@@ -17,7 +17,7 @@ import {
 import { accentColor, primary, secondary } from "../constants/colors";
 import { Home, Add } from "@mui/icons-material";
 import { useState } from "react";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../services/store/userStore";
 import ViewComfyAltIcon from "@mui/icons-material/ViewComfyAlt";
 
 function Navbar() {

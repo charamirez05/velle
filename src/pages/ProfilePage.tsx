@@ -3,13 +3,13 @@ import { secondary, primary } from "../constants/colors";
 import { useUpdateUser } from "../services/userServices/useUsers";
 import { useFieldArray, useForm } from "react-hook-form";
 import { IUser } from "../models/user";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../services/store/userStore";
 
 function ProfilePage() {
   const { user } = useUserStore();
 
   const parsedPassions =
-    user.passions && user.passions.map((p) => JSON.parse(p));
+    user.passions && user.passions.map((p: string) => JSON.parse(p));
 
   const form = useForm<IUser>({
     defaultValues: {

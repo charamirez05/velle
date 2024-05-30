@@ -1,14 +1,7 @@
 import { Grid } from "@mui/material";
-
 import EventCard from "./EventCard";
-
 import { IEvent } from "../models/event";
 
-/* type EventsListingProps = {
-  events: IEvent[];
-};
- */
-//{ events }: EventsListingProps
 function EventsListing({
   events,
   isDashboad,

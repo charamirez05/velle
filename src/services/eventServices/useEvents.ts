@@ -8,8 +8,8 @@ import {
 } from "./events";
 import { IEvent } from "../../models/event";
 import { toast } from "react-toastify";
-import { useEventStore } from "../../store/eventStore";
-import { useUserStore } from "../../store/userStore";
+import { useEventStore } from "../store/eventStore";
+import { useUserStore } from "../store/userStore";
 
 const useEvents = () => {
   return useQuery<IEvent[], Error>({

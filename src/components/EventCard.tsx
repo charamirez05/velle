@@ -10,9 +10,9 @@ import {
 import { accentColor, primary, secondary } from "../constants/colors";
 import { IEvent } from "../models/event";
 import { useJoinEvent } from "../services/eventServices/useEvents";
-import { useUserStore } from "../store/userStore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../services/store/userStore";
 
 function EventCard({
   event,

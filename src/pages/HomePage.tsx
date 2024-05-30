@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
 import { accentColor, primary, secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
-import { useUserStore } from "../store/userStore";
-import { useEventStore } from "../store/eventStore";
 import { useNavigate } from "react-router-dom";
+import { useEventStore } from "../services/store/eventStore";
+import { useUserStore } from "../services/store/userStore";
 
 function HomePage() {
   const { user } = useUserStore();

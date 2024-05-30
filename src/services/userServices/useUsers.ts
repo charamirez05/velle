@@ -2,18 +2,15 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   createUser,
-  createUserProfile,
   getUserById,
   updateUserDetails,
   userSignIn,
 } from "./users";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../database/supabaseClient";
-import { useUserStore } from "../../store/userStore";
-import { IUser } from "../../models/user";
 import { getEventsByUser } from "../eventServices/events";
-import { useEventStore } from "../../store/eventStore";
+import { useEventStore } from "../store/eventStore";
+import { useUserStore } from "../store/userStore";
 
 export function useGetUser(id: string) {
   return useQuery({

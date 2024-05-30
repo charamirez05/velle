@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 
 import { accentColor, secondary } from "../constants/colors";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../services/store/userStore";
 
 function Hero() {
   return (

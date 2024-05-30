@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
-
 import { secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
 import useEvents from "../services/eventServices/useEvents";
-import { useEventStore } from "../store/eventStore";
 import { IEvent } from "../models/event";
 import { useParams } from "react-router-dom";
 import { EventLoading } from "../components/EventLoading";
+import { useEventStore } from "../services/store/eventStore";
 
 function EventsPage() {
   const { type } = useParams();

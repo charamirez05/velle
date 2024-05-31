@@ -4,12 +4,22 @@ import { accentColor, primary, secondary } from "../constants/colors";
 import EventsListing from "../components/EventsListing";
 import useEvents from "../services/eventServices/useEvents";
 import { EventLoading } from "../components/EventLoading";
+import { useUserStore } from "../services/store/userStore";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function SplashPage() {
+  const navigate = useNavigate();
   const { data, isLoading } = useEvents();
-
+  const { user } = useUserStore();
   if (isLoading) return <EventLoading loading={isLoading} />;
 
+  const handleJoinEvent = () => {
+    if (Object.keys(user).length === 0) {
+      toast.error("Sign-in first!");
+      navigate("/sign-in");
+    }
+  };
   return (
     <Box>
       <Hero />
@@ -59,6 +69,7 @@ function SplashPage() {
                 color: primary,
               },
             }}
+            onClick={handleJoinEvent}
           >
             View All Events
           </Button>
@@ -106,6 +117,7 @@ function SplashPage() {
                 color: primary,
               },
             }}
+            onClick={handleJoinEvent}
           >
             View All Events
           </Button>

@@ -14,8 +14,8 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    "jsx-a11y/rule-name": 2,
+    "jsx-a11y/anchor-is-valid": "warn",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
   },
 };

@@ -7,9 +7,7 @@ import { useUserStore } from "../services/store/userStore";
 
 function ProfilePage() {
   const { user } = useUserStore();
-
-  const parsedPassions =
-    user.passions && user.passions.map((p) => JSON.parse(p));
+  console.log(user.passions);
 
   const form = useForm<IUser>({
     defaultValues: {
@@ -18,11 +16,9 @@ function ProfilePage() {
       contactNumber: user.contactNumber,
       birthDate: user.birthDate,
       email: user.email,
-      passions: parsedPassions,
+      passions: user.passions,
     },
   });
-
-  console.log(user);
 
   const { register, handleSubmit, formState, control } = form;
 
@@ -85,7 +81,7 @@ function ProfilePage() {
                 },
               }}
               {...register("name")}
-              error={!!errors.address}
+              error={!!errors.name}
               helperText={errors.name?.message}
             />
 
@@ -183,6 +179,7 @@ function ProfilePage() {
                     <TextField
                       size="small"
                       type="text"
+                      defaultValue={field.passion} // Ensure default value is set
                       {...register(`passions.${index}.passion` as const)}
                     />
                     {index > 0 && (

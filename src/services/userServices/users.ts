@@ -15,11 +15,11 @@ async function registerUser(email: string, password: string) {
   return data.user;
 }
 
-async function inviteUser(email: string) {
+/* async function inviteUser(email: string) {
   const { error } = await supabase.auth.admin.inviteUserByEmail(email);
   if (error) return error;
   return null;
-}
+} */
 
 export async function createUserProfile(newUser: IUser) {
   const { data, error } = await supabase.from("users").insert(newUser);

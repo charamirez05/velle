@@ -150,7 +150,7 @@ function CreateEventPage() {
               }}
               disabled={createEvent.isPending}
             >
-              Register
+              Create Event
             </Button>
           </Stack>
         </form>

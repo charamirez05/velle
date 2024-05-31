@@ -37,7 +37,7 @@ function RegisterPage() {
       id: crypto.randomUUID(),
       name: data.name,
       address: data.address,
-      contactNumber: data.contacNumber,
+      contactNumber: data.contactNumber,
       birthDate: data.birthDate,
       email: data.email,
       password: data.password,

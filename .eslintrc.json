@@ -16,8 +16,9 @@
     "ecmaVersion": 15,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "prettier", "jsx-a11y"],
   "rules": {
+    "jsx-a11y/anchor-is-valid": "warn",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": "off"
   }

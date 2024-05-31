@@ -4,8 +4,10 @@ import { accentColor, primary, secondary } from "../constants/colors";
 import { useSignIn } from "../services/userServices/useUsers";
 import { IUserLogin, userLoginSchema } from "../models/user";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
 function SignInPage() {
+  const navigate = useNavigate();
   const form = useForm<IUserLogin>({
     resolver: zodResolver(userLoginSchema),
   });
@@ -21,6 +23,10 @@ function SignInPage() {
       email: data.email,
       password: data.password,
     });
+  };
+
+  const handleRegisterClick = () => {
+    navigate("/register");
   };
 
   return (
@@ -101,6 +107,25 @@ function SignInPage() {
             </Button>
           </Stack>
         </form>
+
+        <Button
+          variant="text"
+          sx={{
+            marginTop: "10px",
+            fontSize: "12px",
+            color: secondary,
+
+            fontWeight: "bold", // font-bold
+            width: "100%", // w-full
+            textTransform: "none",
+            "&:hover": {
+              color: accentColor,
+            },
+          }}
+          onClick={handleRegisterClick}
+        >
+          Don't have an account yet? Register here.
+        </Button>
       </Box>
     </Box>
   );

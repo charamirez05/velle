@@ -9,7 +9,7 @@ function CreateEventPage() {
   const form = useForm<IEvent>({
     defaultValues: {
       name: "",
-      date: "2024-05-30",
+      date: "",
       time: "8:00",
       location: "",
       description: "",

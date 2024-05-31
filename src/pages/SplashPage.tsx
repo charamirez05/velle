@@ -12,7 +12,8 @@ function SplashPage() {
   const navigate = useNavigate();
   const { data, isLoading } = useEvents();
   const { user } = useUserStore();
-  if (isLoading) return <EventLoading loading={isLoading} />;
+
+  const currentMonth = new Date().toISOString().slice(5, 7);
 
   const handleJoinEvent = () => {
     if (Object.keys(user).length === 0) {
@@ -20,6 +21,8 @@ function SplashPage() {
       navigate("/sign-in");
     }
   };
+
+  if (isLoading) return <EventLoading loading={isLoading} />;
   return (
     <Box>
       <Hero />
@@ -52,7 +55,7 @@ function SplashPage() {
           events={data!
             .filter((event) => {
               const eventMonth = new Date(event.date).toISOString().slice(5, 7);
-              return eventMonth === "05";
+              return eventMonth === currentMonth;
             })
             .slice(0, 4)}
           isDashboad={true}
@@ -100,7 +103,7 @@ function SplashPage() {
           events={data!
             .filter((event) => {
               const eventMonth = new Date(event.date).toISOString().slice(5, 7);
-              return eventMonth !== "05";
+              return eventMonth !== currentMonth;
             })
             .slice(0, 4)}
           isDashboad={true}

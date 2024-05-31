@@ -116,7 +116,7 @@ function RegisterPage() {
             <TextField
               label="Date of Birth"
               type="date"
-              defaultValue={"2024-05-30"}
+              defaultValue={new Date()}
               sx={{
                 "& .MuiInputLabel-root": {
                   color: secondary,

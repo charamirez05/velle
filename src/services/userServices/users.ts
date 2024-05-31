@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import { supabase } from "../../database/supabaseClient";
 import { IUser } from "../../models/user";
 

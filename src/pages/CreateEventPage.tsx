@@ -4,7 +4,6 @@ import { EventSchema, IEvent } from "../models/event";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useCreateEvent } from "../services/eventServices/useEvents";
-import { useNavigate } from "react-router-dom";
 
 function CreateEventPage() {
   const form = useForm<IEvent>({

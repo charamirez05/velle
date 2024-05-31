@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   createUser,
@@ -21,9 +21,11 @@ export function useGetUser(id: string) {
 
 export function useSignIn() {
   const navigate = useNavigate();
-  const { user, addUser } = useUserStore();
 
-  const { events, updateEvents } = useEventStore();
+  const { addUser } = useUserStore();
+  const { updateEvents } = useEventStore();
+
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: userSignIn,
@@ -31,8 +33,8 @@ export function useSignIn() {
       toast.error(error.message);
     },
     onSuccess: async (data: any) => {
-      // queryClient.invalidateQueries(["events"]);
-      console.log(data);
+      queryClient.invalidateQueries({ queryKey: ["events"] });
+
       try {
         const userData = await getUserById(data.id);
         const eventsDate = await getEventsByUser(data.id);
@@ -62,7 +64,7 @@ export function useRegister() {
     onError: (error: any) => {
       toast.error(error.message);
     },
-    onSuccess: async (data: any) => {
+    onSuccess: async () => {
       toast.success("Registered successfully!");
       navigate("/");
     },
@@ -71,7 +73,7 @@ export function useRegister() {
 
 export function useUpdateUser() {
   const navigate = useNavigate();
-  const { user, addUser } = useUserStore();
+  const { addUser } = useUserStore();
 
   return useMutation({
     mutationFn: updateUserDetails,
@@ -80,7 +82,6 @@ export function useUpdateUser() {
     },
     onSuccess: async (data: any) => {
       try {
-        console.log("hey", data);
         const userData = await getUserById(data);
 
         //Change the user in the userStore with the updated data

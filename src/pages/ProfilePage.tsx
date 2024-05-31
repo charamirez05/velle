@@ -9,7 +9,7 @@ function ProfilePage() {
   const { user } = useUserStore();
 
   const parsedPassions =
-    user.passions && user.passions.map((p: string) => JSON.parse(p));
+    user.passions && user.passions.map((p) => JSON.parse(p));
 
   const form = useForm<IUser>({
     defaultValues: {

@@ -27,10 +27,9 @@ export function useJoinEvent() {
     onError: (error: any) => {
       toast.error(error.message);
     },
-    onSuccess: async (data: any) => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
       toast.success("Event joined successfully!");
-      console.log("hey", user);
       const events = await getEventsByUser(user.id);
       updateEvents(events);
     },
@@ -45,7 +44,7 @@ export function useCreateEvent() {
     onError: (error: any) => {
       toast.error(error.message);
     },
-    onSuccess: async (data: any) => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
       toast.success("Event created successfully!");
       navigate("/home");

@@ -8,7 +8,6 @@ interface EventState {
 }
 export const useEventStore = create<EventState>((set) => ({
   events: [],
-  updateEvents: (newEvents: IEvent[]) =>
-    set((state) => ({ events: newEvents })),
+  updateEvents: (newEvents: IEvent[]) => set({ events: newEvents }),
   resetEvents: () => set({ events: [] }),
 }));

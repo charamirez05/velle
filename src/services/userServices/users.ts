@@ -38,17 +38,15 @@ export async function createUser(newUser: IUser) {
 
     if (user) newUser.id = user.id;
 
-    createUserProfile(newUser);
-
-    //naa limit per hour
-    /* const { error: magicLinkError } =
+    //Has a limit of sending magic link emails - 3 per hour
+    const { error: magicLinkError } =
       await supabase.auth.admin.inviteUserByEmail(newUser.email);
 
-    //Has a limit of sending magic link emails - 3 per hour
-     if (magicLinkError) {
+    if (magicLinkError) {
       throw magicLinkError;
-    } else {  */
-
+    } else {
+      createUserProfile(newUser);
+    }
     return;
   } catch (error) {
     console.error("SA USERS NI Error creating user:", error);
